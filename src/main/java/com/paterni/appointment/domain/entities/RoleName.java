@@ -1,5 +1,5 @@
 package com.paterni.appointment.domain.entities;
 
 public enum RoleName {
-    ROLE_ADMIN, ROLE_OPERETOR
+    ROLE_ADMIN, ROLE_OPERATOR
 }

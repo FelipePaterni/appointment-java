@@ -1,31 +1,22 @@
 package com.paterni.appointment.domain.entities;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "TBL_AREA")
-public class Area implements Serializable {
-
+@Table(name = "TBL_APPOINTMENT_TYPE")
+public class AppointmentType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String type;
 
-    @ManyToMany
-    @JoinTable(name = "TBL_AREA_PROFESSIONAL", joinColumns = @JoinColumn(name = "area_id"), inverseJoinColumns = @JoinColumn(name = "professional_id"))
-    private Set<Professional> professionals;
-
-    public Area() {
+    public AppointmentType() {
     }
 
     public Long getId() {
@@ -36,20 +27,12 @@ public class Area implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Professional> getProfessionals() {
-        return professionals;
-    }
-
-    public void setProfessionals(Set<Professional> professionals) {
-        this.professionals = professionals;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
@@ -68,7 +51,7 @@ public class Area implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Area other = (Area) obj;
+        AppointmentType other = (AppointmentType) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

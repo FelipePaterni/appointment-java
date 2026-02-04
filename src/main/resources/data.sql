@@ -1,47 +1,278 @@
-insert into
-    TBL_PERSON (NAME, PHONE)
+INSERT INTO
+    TBL_PERSON (PHONE, NAME)
 VALUES
-    ('John Doe', '555-1234'),
-    ('Jane Smith', '555-5678'),
-    ('Alice Johnson', '555-8765'),
-    ('Bob Brown', '555-4321'),
-    ('Charlie Davis', '555-0000'),
-    ('Felipe', '9999-9999'),
-    ('Maria', '8888-8888'),
-    ('Lucas', '7777-7777'),
-    ('Ana', '6666-6666');
+    ('15 992231122', 'Ana Maria');
 
-insert into
-    TBL_CLIENT (BIRTH_DATE, PERSON_ID)
+INSERT INTO
+    TBL_PERSON (PHONE, NAME)
 VALUES
-    ('1990-01-01', 1),
-    ('1985-05-15', 2),
-    ('1992-07-20', 3);
+    ('15 923233212', 'Pedro Silva');
 
-insert into
+INSERT INTO
+    TBL_PERSON (PHONE, NAME)
+VALUES
+    ('11 902324322', 'Marco Nunes');
+
+INSERT INTO
+    TBL_PERSON (PHONE, NAME)
+VALUES
+    ('13 999216212', 'Marcelo Silva');
+
+INSERT INTO
+    TBL_PERSON (PHONE, NAME)
+VALUES
+    ('13 999216212', 'Fernanda Cruz');
+
+INSERT INTO
+    TBL_PERSON (PHONE, NAME)
+VALUES
+    ('13 999216212', 'Lucia Gomes');
+
+INSERT INTO
+    TBL_PERSON (PHONE, NAME)
+VALUES
+    ('13 999216212', 'Murilio Aparecido');
+
+INSERT INTO
+    TBL_PERSON (PHONE, NAME)
+VALUES
+    ('13 999216212', 'João Antunes da Cruz');
+
+INSERT INTO
+    TBL_PERSON (PHONE, NAME)
+VALUES
+    ('13 999216212', 'Marcos Santos Rosa');
+
+INSERT INTO
+    TBL_CLIENT (DATE_OF_BIRTH, PERSON_ID)
+VALUES
+    (DATE '2000-08-02', 1);
+
+INSERT INTO
+    TBL_CLIENT (DATE_OF_BIRTH, PERSON_ID)
+VALUES
+    (DATE '1998-01-22', 2);
+
+INSERT INTO
+    TBL_CLIENT (DATE_OF_BIRTH, PERSON_ID)
+VALUES
+    (DATE '1998-01-22', 3);
+
+INSERT INTO
     TBL_PROFESSIONAL (ACTIVE, PERSON_ID)
 VALUES
-    (true, 4),
-    (true, 5),
-    (false, 6);
+    (TRUE, 4);
 
-insert into
+INSERT INTO
+    TBL_PROFESSIONAL (ACTIVE, PERSON_ID)
+VALUES
+    (TRUE, 5);
+
+INSERT INTO
+    TBL_PROFESSIONAL (ACTIVE, PERSON_ID)
+VALUES
+    (FALSE, 6);
+
+INSERT INTO
     TBL_USER (EMAIL, PASSWORD, PERSON_ID)
 VALUES
-    ('john.doe@example.com', 'password123', 7),
-    ('jane.smith@example.com', 'password456', 8),
-    ('alice.johnson@example.com', 'password789', 9);
+    ('murilo@gmail.com', '123456', 7);
 
-insert into
-    TBL_ROLE (role)
-values
-    ('ROLE_ADMIN'),
-    ('ROLE_OPERETOR');
+INSERT INTO
+    TBL_USER (EMAIL, PASSWORD, PERSON_ID)
+VALUES
+    ('joao@gmail.com', '123456', 8);
 
-insert into
-    TBL_USER_ROLE (role_id, user_id)
-values
-    (1, 7),
-    (2, 7),
-    (2, 8),
+INSERT INTO
+    TBL_USER (EMAIL, PASSWORD, PERSON_ID)
+VALUES
+    ('marcos@gmail.com', '123456', 9);
+
+INSERT INTO
+    TBL_ROLE (ROLE)
+VALUES
+    ('ROLE_ADMIN');
+
+INSERT INTO
+    TBL_ROLE (ROLE)
+VALUES
+    ('ROLE_OPERATOR');
+
+INSERT INTO
+    TBL_USER_ROLE (ROLE_ID, USER_ID)
+VALUES
+    (1, 7);
+
+INSERT INTO
+    TBL_USER_ROLE (ROLE_ID, USER_ID)
+VALUES
+    (2, 7);
+
+INSERT INTO
+    TBL_USER_ROLE (ROLE_ID, USER_ID)
+VALUES
+    (2, 8);
+
+INSERT INTO
+    TBL_USER_ROLE (ROLE_ID, USER_ID)
+VALUES
     (2, 9);
+
+INSERT INTO
+    TBL_AREA (NAME)
+VALUES
+    ('Fisioterapia');
+
+INSERT INTO
+    TBL_AREA (NAME)
+VALUES
+    ('Terapia Ocupacional');
+
+INSERT INTO
+    TBL_AREA (NAME)
+VALUES
+    ('Clínica Médica');
+
+INSERT INTO
+    TBL_AREA_PROFESSIONAL (AREA_ID, PROFESSIONAL_ID)
+VALUES
+    (1, 4);
+
+INSERT INTO
+    TBL_AREA_PROFESSIONAL (AREA_ID, PROFESSIONAL_ID)
+VALUES
+    (1, 5);
+
+INSERT INTO
+    TBL_AREA_PROFESSIONAL (AREA_ID, PROFESSIONAL_ID)
+VALUES
+    (2, 5);
+
+INSERT INTO
+    TBL_AREA_PROFESSIONAL (AREA_ID, PROFESSIONAL_ID)
+VALUES
+    (2, 6);
+
+INSERT INTO
+    TBL_AREA_PROFESSIONAL (AREA_ID, PROFESSIONAL_ID)
+VALUES
+    (3, 6);
+
+INSERT INTO
+    TBL_AREA_PROFESSIONAL (AREA_ID, PROFESSIONAL_ID)
+VALUES
+    (3, 4);
+
+INSERT INTO
+    TBL_APPOINTMENT_TYPE (TYPE)
+VALUES
+    ('Particular');
+
+INSERT INTO
+    TBL_APPOINTMENT_TYPE (TYPE)
+VALUES
+    ('Convênio Prefeitura');
+
+INSERT INTO
+    TBL_APPOINTMENT_TYPE (TYPE)
+VALUES
+    ('Convênio Plano Azul');
+
+INSERT INTO
+    TBL_WORK_SCHEDULE_ITEM (
+        DAY_OF_WEEK,
+        START_TIME,
+        END_TIME,
+        SLOTS,
+        SLOT_SIZE,
+        PROFESSIONAL_ID
+    )
+VALUES
+    (1, '08:00:00', '12:00:00', 8, 30, 4);
+
+INSERT INTO
+    TBL_WORK_SCHEDULE_ITEM (
+        DAY_OF_WEEK,
+        START_TIME,
+        END_TIME,
+        SLOTS,
+        SLOT_SIZE,
+        PROFESSIONAL_ID
+    )
+VALUES
+    (1, '14:00:00', '18:00:00', 8, 30, 4);
+
+INSERT INTO
+    TBL_APPOINTMENT (
+        DATE,
+        START_TIME,
+        END_TIME,
+        STATUS,
+        COMMENTS,
+        CLIENT_ID,
+        PROFESSIONAL_ID,
+        AREA_ID,
+        APPOINTMENT_TYPE_ID
+    )
+VALUES
+    (
+        '2024-04-08 00:00:00-03',
+        '08:00:00-03',
+        '08:30:00-03',
+        'OPEN',
+        'Parcelar em 3x',
+        1,
+        4,
+        1,
+        1
+    );
+
+INSERT INTO
+    TBL_APPOINTMENT (
+        DATE,
+        START_TIME,
+        END_TIME,
+        STATUS,
+        COMMENTS,
+        CLIENT_ID,
+        PROFESSIONAL_ID,
+        AREA_ID,
+        APPOINTMENT_TYPE_ID
+    )
+VALUES
+    (
+        '2024-04-08 00:00:00-03',
+        '09:30:00-03',
+        '10:00:00-03',
+        'OPEN',
+        '',
+        2,
+        4,
+        1,
+        2
+    );
+
+INSERT INTO
+    TBL_APPOINTMENT (
+        DATE,
+        START_TIME,
+        END_TIME,
+        STATUS,
+        COMMENTS,
+        CLIENT_ID,
+        PROFESSIONAL_ID,
+        AREA_ID,
+        APPOINTMENT_TYPE_ID
+    )
+VALUES
+    (
+        '2024-04-15 00:00:00-03',
+        '09:30:00-03',
+        '10:00:00-03',
+        'OPEN',
+        'Ligar para confirmar',
+        3,
+        4,
+        3,
+        3
+    );

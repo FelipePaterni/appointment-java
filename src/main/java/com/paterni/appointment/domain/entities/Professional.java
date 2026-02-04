@@ -1,11 +1,15 @@
 package com.paterni.appointment.domain.entities;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
@@ -16,8 +20,12 @@ public class Professional extends Person {
     private Boolean active;
 
     @ManyToMany
-    @JoinTable(name = "TBL_PROFESSIONAL_AREA", joinColumns = @JoinColumn(name = "professional_id"), inverseJoinColumns = @JoinColumn(name = "area_id"))
+    @JoinTable(name = "TBL_AREA_PROFESSIONAL", joinColumns = @JoinColumn(name = "professional_id"), inverseJoinColumns = @JoinColumn(name = "area_id"))
     private Set<Area> areas;
+
+    @OneToMany
+    @JoinColumn(name = "professional_id")
+    private List<WorkScheduleItem> workScheduleItems;
 
     public Professional() {
         super();
@@ -27,8 +35,23 @@ public class Professional extends Person {
         return active;
     }
 
+    public void addWorkScheduleItem(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime, Integer slots,
+            Integer slotSize) {
+
+        WorkScheduleItem wsi = new WorkScheduleItem(dayOfWeek, startTime, endTime, slots, slotSize);
+        this.workScheduleItems.add(wsi);
+    }
+
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Set<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(Set<Area> areas) {
+        this.areas = areas;
     }
 
 }

@@ -8,20 +8,20 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "TBL_CLIENT")
-@PrimaryKeyJoinColumn(name = "Person_Id")
+@PrimaryKeyJoinColumn(name = "PERSON_ID")
 public class Client extends Person {
-    private LocalDate birthDate;
+    private LocalDate dateOfBirth;
 
     public Client() {
         super();
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
 }
