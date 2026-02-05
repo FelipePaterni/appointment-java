@@ -1,8 +1,11 @@
 package com.paterni.appointment.domain.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
@@ -11,6 +14,9 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name = "PERSON_ID")
 public class Client extends Person {
     private LocalDate dateOfBirth;
+
+    @OneToMany(mappedBy = "client")
+    private List<Appointment> appointments = new ArrayList<>();
 
     public Client() {
         super();
@@ -22,6 +28,14 @@ public class Client extends Person {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
 }

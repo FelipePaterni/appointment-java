@@ -3,6 +3,7 @@ package com.paterni.appointment.domain.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 @Table(name = "TBL_USER")
 @PrimaryKeyJoinColumn(name = "Person_Id")
 public class User extends Person {
+    @Column(nullable = false, unique = true)
     private String email;
     private String password;
 

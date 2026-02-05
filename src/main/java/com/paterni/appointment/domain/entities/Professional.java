@@ -2,6 +2,7 @@ package com.paterni.appointment.domain.entities;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +27,9 @@ public class Professional extends Person {
     @OneToMany
     @JoinColumn(name = "professional_id")
     private List<WorkScheduleItem> workScheduleItems;
+
+    @OneToMany(mappedBy = "professional")
+    private List<Appointment> appointments = new ArrayList<>();
 
     public Professional() {
         super();
@@ -52,6 +56,22 @@ public class Professional extends Person {
 
     public void setAreas(Set<Area> areas) {
         this.areas = areas;
+    }
+
+    public List<WorkScheduleItem> getWorkScheduleItems() {
+        return workScheduleItems;
+    }
+
+    public void setWorkScheduleItems(List<WorkScheduleItem> workScheduleItems) {
+        this.workScheduleItems = workScheduleItems;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
 }
