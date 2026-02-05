@@ -74,4 +74,9 @@ public class Professional extends Person {
         this.appointments = appointments;
     }
 
+    @Override
+    public String toString() {
+        return "Professional [active=" + active + super.toString() + "]";
+    }
+
 }

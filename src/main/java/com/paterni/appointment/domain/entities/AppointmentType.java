@@ -60,4 +60,9 @@ public class AppointmentType implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "AppointmentType [id=" + id + ", type=" + type + "]";
+    }
+
 }

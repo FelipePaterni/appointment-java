@@ -38,4 +38,9 @@ public class Client extends Person {
         this.appointments = appointments;
     }
 
+    @Override
+    public String toString() {
+        return " Client [dateOfBirth= " + dateOfBirth + " " + super.toString() + "]";
+    }
+
 }

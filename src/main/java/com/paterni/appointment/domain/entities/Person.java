@@ -75,4 +75,9 @@ public class Person implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Person [id=" + id + ", name=" + name + ", phone=" + phone + "]";
+    }
+
 }

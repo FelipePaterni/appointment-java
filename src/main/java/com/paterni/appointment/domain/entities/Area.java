@@ -77,4 +77,9 @@ public class Area implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Area [id=" + id + ", name=" + name + "]";
+    }
+
 }
