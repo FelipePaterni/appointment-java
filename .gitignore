@@ -1,8 +1,5 @@
 HELP.md
 
-/src/main/resources/templates/
-!/src/main/resources/templates/data.sql
-!/src/main/resources/templates/application.properties
 
 target/
 .mvn/wrapper/maven-wrapper.jar
