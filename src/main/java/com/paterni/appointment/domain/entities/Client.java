@@ -22,6 +22,11 @@ public class Client extends Person {
         super();
     }
 
+    public Client( String name, String phone, LocalDate dateOfBirth) {
+        super(name, phone);
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
