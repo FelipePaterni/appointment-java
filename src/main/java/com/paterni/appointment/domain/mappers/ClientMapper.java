@@ -15,6 +15,6 @@ public class ClientMapper {
     }
 
     public static Client fromClientRequestDTO(ClientRequest clientRequest) {
-        return new Client(clientRequest.name(),clientRequest.phone(), clientRequest.dateOfBirth());
+        return new Client(clientRequest.name(), clientRequest.phone(), clientRequest.dateOfBirth());
     }
 }
