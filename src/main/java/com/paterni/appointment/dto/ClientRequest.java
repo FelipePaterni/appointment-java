@@ -2,10 +2,15 @@ package com.paterni.appointment.dto;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public record ClientRequest(
-    String name,
-    String phone,
-    LocalDate dateOfBirth
+        @NotBlank(message = "Name required") String name,
+        @NotBlank(message = "Phone required")
+        String phone,
+        @NotNull(message = "Date of birth required") 
+        LocalDate dateOfBirth
 
 ) {
 
