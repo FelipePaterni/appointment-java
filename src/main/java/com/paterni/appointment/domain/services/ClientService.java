@@ -1,6 +1,7 @@
 package com.paterni.appointment.domain.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -62,7 +63,7 @@ public class ClientService {
             } else {
                 throw new EntityNotFoundException("Client with id " + id + " not found");
             }
-        } catch (Exception e) {
+        } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Conflito ao remover o cliente", HttpStatus.BAD_REQUEST);
         }
     }
