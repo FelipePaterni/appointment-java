@@ -39,7 +39,7 @@ public class Professional extends Person {
         super(id);
     }
 
-    public Boolean getActive() {
+    public Boolean isActive() {
         return active;
     }
 
