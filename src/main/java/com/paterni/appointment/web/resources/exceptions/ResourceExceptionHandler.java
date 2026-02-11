@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.paterni.appointment.domain.services.exceptions.BusinessException;
 import com.paterni.appointment.domain.services.exceptions.DatabaseException;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -17,7 +18,8 @@ import jakarta.servlet.http.HttpServletRequest;
 public class ResourceExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ValidationErrors> validationException(MethodArgumentNotValidException exception, HttpServletRequest request){
+    public ResponseEntity<ValidationErrors> validationException(MethodArgumentNotValidException exception,
+            HttpServletRequest request) {
 
         ValidationErrors error = new ValidationErrors();
 
@@ -30,14 +32,14 @@ public class ResourceExceptionHandler {
         error.setTimeStamp(Instant.now());
 
         exception.getBindingResult()
-                 .getFieldErrors()
-                 .forEach( e -> error.addError(e.getDefaultMessage()));
-        
+                .getFieldErrors()
+                .forEach(e -> error.addError(e.getDefaultMessage()));
+
         return ResponseEntity.status(status).body(error);
     }
 
     @ExceptionHandler(DatabaseException.class)
-    public ResponseEntity<StandardError> databaseException(DatabaseException exception, HttpServletRequest request){
+    public ResponseEntity<StandardError> databaseException(DatabaseException exception, HttpServletRequest request) {
 
         StandardError error = new StandardError();
 
@@ -52,9 +54,25 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(error);
     }
 
-    
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<StandardError> bussinessException(BusinessException exception, HttpServletRequest request) {
+
+        StandardError error = new StandardError();
+
+        HttpStatus status = HttpStatus.CONFLICT;
+
+        error.setError("Business exception");
+        error.setMessage(exception.getMessage());
+        error.setPath(request.getRequestURI());
+        error.setStatus(status.value());
+        error.setTimeStamp(Instant.now());
+
+        return ResponseEntity.status(status).body(error);
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<StandardError> entityNotFoundException(EntityNotFoundException exception, HttpServletRequest request){
+    public ResponseEntity<StandardError> entityNotFoundException(EntityNotFoundException exception,
+            HttpServletRequest request) {
 
         StandardError error = new StandardError();
 
@@ -68,5 +86,5 @@ public class ResourceExceptionHandler {
 
         return ResponseEntity.status(status).body(error);
     }
-    
+
 }
