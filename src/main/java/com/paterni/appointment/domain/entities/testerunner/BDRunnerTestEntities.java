@@ -48,10 +48,10 @@ public class BDRunnerTestEntities implements ApplicationRunner {
         Professional p1 = professionalRepository.findById(4L).get();
         System.out.println(p1);
 
-        Area a1 = areaRepository.findById(1L).get();
+        Area a1 = areaRepository.findById(1).get();
         System.out.println(a1);
 
-        AppointmentType at1 = appointmentTypeRepository.findById(1L).get();
+        AppointmentType at1 = appointmentTypeRepository.findById(1).get();
         System.out.println(at1);
 
         Appointment appointment = new Appointment();
