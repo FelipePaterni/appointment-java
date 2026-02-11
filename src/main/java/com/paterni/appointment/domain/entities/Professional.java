@@ -35,6 +35,10 @@ public class Professional extends Person {
         super();
     }
 
+    public Professional(Long id) {
+        super(id);
+    }
+
     public Boolean getActive() {
         return active;
     }

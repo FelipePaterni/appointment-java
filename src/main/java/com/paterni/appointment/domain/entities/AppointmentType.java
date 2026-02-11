@@ -13,17 +13,21 @@ import jakarta.persistence.Table;
 public class AppointmentType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String type;
 
     public AppointmentType() {
     }
 
-    public Long getId() {
+    public AppointmentType(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

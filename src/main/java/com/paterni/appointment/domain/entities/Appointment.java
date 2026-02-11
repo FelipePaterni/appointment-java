@@ -55,6 +55,9 @@ public class Appointment implements Serializable {
     @JoinColumn(name = "APPOINTMENT_TYPE_ID", nullable = false)
     private AppointmentType appointmentType;
 
+    public Appointment() {
+    }
+
     public Long getId() {
         return id;
     }

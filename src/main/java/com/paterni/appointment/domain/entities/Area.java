@@ -18,7 +18,7 @@ public class Area implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
 
     @ManyToMany
@@ -28,11 +28,15 @@ public class Area implements Serializable {
     public Area() {
     }
 
-    public Long getId() {
+    public Area(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
