@@ -13,12 +13,14 @@ import com.paterni.appointment.domain.entities.AppointmentType;
 import com.paterni.appointment.domain.entities.Area;
 import com.paterni.appointment.domain.entities.Client;
 import com.paterni.appointment.domain.entities.Professional;
+import com.paterni.appointment.domain.models.TimeSlot;
 import com.paterni.appointment.domain.repositories.AppointmentRepository;
 import com.paterni.appointment.domain.repositories.AppointmentTypeRepository;
 import com.paterni.appointment.domain.repositories.AreaRepository;
 import com.paterni.appointment.domain.repositories.ClientRepository;
 import com.paterni.appointment.domain.repositories.ProfessionalRepository;
 import com.paterni.appointment.domain.services.exceptions.BusinessException;
+import com.paterni.appointment.domain.services.usecases.read.SearchProfessionalAvailabiltyTimesUseCase;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -38,6 +40,9 @@ public class CreateAppointmentUseCase {
     private ProfessionalRepository professionalRepository;
     @Autowired
     private ClientRepository clienteRepository;
+
+    @Autowired
+    private SearchProfessionalAvailabiltyTimesUseCase searchProfessionalAvailabiltyTimesUseCase;
 
     public Appointment executeUserCase(Appointment appointment) {
         checkAppointmentTypeExistOrThrowsException(appointment.getAppointmentType());
@@ -60,26 +65,20 @@ public class CreateAppointmentUseCase {
 
     private void checkProfessionalHasAvailableScheduleOrThrowsException(Professional professional,
             Appointment appointment) {
-        /*
-         * var timeSlots =
-         * this.searchProfessionalAvailabiltyTimesUseCase.executeUseCase(professional,
-         * appointment.getDate());
-         * 
-         * if (timeSlots.isEmpty()) {
-         * throw new
-         * BusinessException("O professional não trabalha na data selecionada.");
-         * } else {
-         * var timeSlot = timeSlots.stream().filter(ts ->
-         * ts.getStartTime().equals(appointment.getStartTime()) &&
-         * ts.getEndTime().equals(appointment.getEndTime())).findFirst();
-         * 
-         * if (timeSlot.isEmpty()) {
-         * throw new
-         * BusinessException("O professional não trabalha no horário selecionado.");
-         * }
-         * }
-         */
-        throw new RuntimeException("Not implemented yet");
+        List<TimeSlot> timeSlots = this.searchProfessionalAvailabiltyTimesUseCase.executeUseCase(professional,
+                appointment.getDate());
+
+        if (timeSlots.isEmpty()) {
+            throw new BusinessException("Professional has no available schedule at the given date.");
+        } else {
+            var timeSlot = timeSlots.stream().filter(ts -> ts.getStartTime().equals(appointment.getStartTime()) &&
+                    ts.getEndTime().equals(appointment.getEndTime())).findFirst();
+
+            if (timeSlot.isEmpty()) {
+                throw new BusinessException("Professional has no available schedule at the given date and time.");
+            }
+        }
+
     }
 
     private void checkProfessionalCanCreateAppointmentAtDateAndTimeOrThrowsException(Professional professional,

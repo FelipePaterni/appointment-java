@@ -1,9 +1,8 @@
 package com.paterni.appointment.domain.services.usecases.read;
 
-import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class SearchProfessionalAvailabiltyTimesUseCase {
     // TODO: Implementar método para buscar os horários disponíveis de um
     // profissional em um dia específico, considerando os agendamentos já existentes
     // e a duração dos tipos de atendimento oferecidos pelo profissional.
-    public List<TimeSlot> executeUserCase(Professional professional, Date date) {
+    public List<TimeSlot> executeUseCase(Professional professional, LocalDate date) {
         TimeSlot t1 = new TimeSlot(LocalTime.parse("08:00:00"), LocalTime.parse("08:30:00"), true);
 
         TimeSlot t2 = new TimeSlot(LocalTime.parse("08:30:00"), LocalTime.parse("09:00:00"), true);
