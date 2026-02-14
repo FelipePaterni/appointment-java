@@ -2,32 +2,80 @@ package com.paterni.appointment.domain.services.usecases.read;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.paterni.appointment.domain.entities.Appointment;
+import com.paterni.appointment.domain.entities.AppointmentStatus;
 import com.paterni.appointment.domain.entities.Professional;
+import com.paterni.appointment.domain.entities.WorkScheduleItem;
 import com.paterni.appointment.domain.models.TimeSlot;
+import com.paterni.appointment.domain.repositories.AppointmentRepository;
+import com.paterni.appointment.domain.repositories.WorkScheduleItemRepository;
 
 @Service
 public class SearchProfessionalAvailabiltyTimesUseCase {
 
-    // TODO: Implementar método para buscar os horários disponíveis de um
-    // profissional em um dia específico, considerando os agendamentos já existentes
-    // e a duração dos tipos de atendimento oferecidos pelo profissional.
+    @Autowired
+    private WorkScheduleItemRepository workScheduleItemRepository;
+
+    @Autowired
+    private AppointmentRepository appointmentRepository;
+
     public List<TimeSlot> executeUseCase(Professional professional, LocalDate date) {
-        TimeSlot t1 = new TimeSlot(LocalTime.parse("08:00:00"), LocalTime.parse("08:30:00"), true);
 
-        TimeSlot t2 = new TimeSlot(LocalTime.parse("08:30:00"), LocalTime.parse("09:00:00"), true);
+        var timeSlots = new ArrayList<TimeSlot>();
 
-        TimeSlot t3 = new TimeSlot(LocalTime.parse("09:00:00"), LocalTime.parse("09:30:00"), false);
+        var workScheduleItems = getWorkScheduleItem(professional, date);
+        var appointments = getAppointments(professional, date);
 
-        TimeSlot t4 = new TimeSlot(LocalTime.parse("09:30:00"), LocalTime.parse("10:00:00"), true);
+        for (WorkScheduleItem item : workScheduleItems) {
+            timeSlots.addAll(calculateTimeSlots(item, appointments));
+        }
 
-        TimeSlot t5 = new TimeSlot(LocalTime.parse("10:00:00"), LocalTime.parse("10:30:00"), true);
+        return timeSlots;
+    }
 
-        return Arrays.asList(t1, t2, t3, t4, t5);
+    private List<TimeSlot> calculateTimeSlots(WorkScheduleItem item, List<Appointment> appointments) {
+        var startTime = item.getStartTime();
+        var slotSize = item.getSlotSize();
+        var slots = item.getSlots();
+        var timeSlots = new ArrayList<TimeSlot>();
+
+        for (int i = 0; i < slots; i++) {
+            var start = startTime.plusMinutes(i * slotSize);
+            var end = start.plusMinutes(slotSize);
+
+            boolean available = isTimeSlotAvailable(start, end, appointments);
+
+            timeSlots.add(new TimeSlot(start, end, available));
+        }
+        return timeSlots;
+    }
+
+    private boolean isTimeSlotAvailable(LocalTime start, LocalTime end, List<Appointment> appointments) {
+        return appointments
+                .stream()
+                .noneMatch(a -> //
+                (//
+                a.getStartTime().isBefore(end) && //
+                        a.getEndTime().isAfter(start) //
+                ) && ( //
+                a.getStatus().equals(AppointmentStatus.OPEN) || //
+                        a.getStatus().equals(AppointmentStatus.PRESENT)//
+                ));
+    }
+
+    private List<Appointment> getAppointments(Professional professional, LocalDate date) {
+        return this.appointmentRepository.findByProfessionalIdAndDate(professional.getId(), date);
+    }
+
+    private List<WorkScheduleItem> getWorkScheduleItem(Professional professional, LocalDate date) {
+        return this.workScheduleItemRepository
+                .findByProfessionalAndDayOfWeekOrderByStartTime(professional, date.getDayOfWeek());
     }
 
 }

@@ -53,4 +53,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
                         """)
         boolean existsAppointmentsForProfessional(Professional professional, LocalDate date, LocalTime startTime,
                         LocalTime endTime, List<AppointmentStatus> statuses);
+
+        List<Appointment> findByProfessionalIdAndDate(Long id, LocalDate date);
 }
