@@ -39,6 +39,11 @@ public class Professional extends Person {
         super(id);
     }
 
+    public Professional(String name, String phone, boolean active2) {
+        super(name, phone);
+        this.active = active2;
+    }
+
     public Boolean isActive() {
         return active;
     }

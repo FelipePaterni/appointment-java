@@ -13,17 +13,25 @@ import com.paterni.appointment.domain.entities.WorkScheduleItem;
 @Repository
 public interface WorkScheduleItemRepository extends JpaRepository<WorkScheduleItem, Long> {
 
-    @Query("""
-            SELECT w FROM WorkScheduleItem w
-            WHERE w.professional = :professional
-            AND w.dayOfWeek = :dayOfWeek
-            ORDER BY w.startTime
-            """)
-    List<WorkScheduleItem> getWorkScheduleFromProfessionalByDayOfWeekOrderByStartTime(
-            Professional professional,
-            DayOfWeek dayOfWeek);
+        @Query("""
+                        SELECT w FROM WorkScheduleItem w
+                        WHERE w.professional = :professional
+                        AND w.dayOfWeek = :dayOfWeek
+                        ORDER BY w.startTime
+                        """)
+        List<WorkScheduleItem> getWorkScheduleFromProfessionalByDayOfWeekOrderByStartTime(
+                        Professional professional,
+                        DayOfWeek dayOfWeek);
 
-    List<WorkScheduleItem> findByProfessionalAndDayOfWeekOrderByStartTime(
-            Professional professional,
-            DayOfWeek dayOfWeek);
+        /**
+         * Busca os itens de horário de trabalho de um profissional específico para um
+         * dia da semana, ordenados pelo horário de início.
+         * 
+         * @param professional
+         * @param dayOfWeek
+         * @return
+         */
+        List<WorkScheduleItem> findByProfessionalAndDayOfWeekOrderByStartTime(
+                        Professional professional,
+                        DayOfWeek dayOfWeek);
 }
