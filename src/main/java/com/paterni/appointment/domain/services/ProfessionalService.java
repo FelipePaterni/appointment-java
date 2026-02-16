@@ -41,6 +41,7 @@ public class ProfessionalService {
     public List<TimeSlotResponse> getAvaliabilityeTimes(Long id, LocalDate date) {
         var professional = professionalRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Professional with id " + id + " not found "));
+
         var timeSlots = searchProfessionalAvailabiltyTimesUseCase.executeUseCase(professional, date);
 
         return timeSlots.stream().map(TimeSlotMapper::toTimeSlotResponseDTO).toList();

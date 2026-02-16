@@ -1,6 +1,7 @@
 package com.paterni.appointment.web.resources.exceptions;
 
 import java.time.Instant;
+import java.time.format.DateTimeParseException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,23 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
+
+    @ExceptionHandler(DateTimeParseException.class)
+    public ResponseEntity<StandardError> dateTimeParseException(DateTimeParseException exception,
+            HttpServletRequest request) {
+
+        StandardError error = new StandardError();
+
+        HttpStatus status = HttpStatus.NOT_FOUND;
+
+        error.setError("Parse Date Exception");
+        error.setMessage("The date format is not valid. Use 'yyyy-MM-dd'");
+        error.setPath(request.getRequestURI());
+        error.setStatus(status.value());
+        error.setTimeStamp(Instant.now());
+
+        return ResponseEntity.status(status).body(error);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationErrors> validationException(MethodArgumentNotValidException exception,

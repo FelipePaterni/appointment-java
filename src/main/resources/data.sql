@@ -188,7 +188,7 @@ INSERT INTO
         PROFESSIONAL_ID
     )
 VALUES
-    (1, '08:00:00', '12:00:00', 8, 30, 4);
+    (0, '08:00:00', '12:00:00', 8, 30, 4);
 
 INSERT INTO
     TBL_WORK_SCHEDULE_ITEM (
@@ -200,7 +200,7 @@ INSERT INTO
         PROFESSIONAL_ID
     )
 VALUES
-    (1, '14:00:00', '18:00:00', 8, 30, 4);
+    (0, '14:00:00', '18:00:00', 8, 30, 4);
 
 INSERT INTO
     TBL_APPOINTMENT (

@@ -33,13 +33,13 @@ public class SearchProfessionalAvailabiltyTimesUseCase {
         var appointments = getAppointments(professional, date);
 
         for (WorkScheduleItem item : workScheduleItems) {
-            timeSlots.addAll(calculateTimeSlots(item, appointments));
+            timeSlots.addAll(calculateTimeSlots(item, appointments, date));
         }
 
         return timeSlots;
     }
 
-    private List<TimeSlot> calculateTimeSlots(WorkScheduleItem item, List<Appointment> appointments) {
+    private List<TimeSlot> calculateTimeSlots(WorkScheduleItem item, List<Appointment> appointments, LocalDate date) {
         var startTime = item.getStartTime();
         var slotSize = item.getSlotSize();
         var slots = item.getSlots();
@@ -50,10 +50,16 @@ public class SearchProfessionalAvailabiltyTimesUseCase {
             var end = start.plusMinutes(slotSize);
 
             boolean available = isTimeSlotAvailable(start, end, appointments);
+            boolean nowOrFuture = isStartTimeValidIfDateIsToday(start, date);
 
-            timeSlots.add(new TimeSlot(start, end, available));
+            timeSlots.add(new TimeSlot(start, end, available && nowOrFuture));
         }
         return timeSlots;
+    }
+
+    private boolean isStartTimeValidIfDateIsToday(LocalTime start, LocalDate date) {
+        return date.isAfter(LocalDate.now())
+                || (date.equals(LocalDate.now()) && start.isAfter(LocalTime.now()));
     }
 
     private boolean isTimeSlotAvailable(LocalTime start, LocalTime end, List<Appointment> appointments) {
