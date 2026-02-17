@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.paterni.appointment.domain.entities.Professional;
 import com.paterni.appointment.domain.repositories.AppointmentRepository;
-import com.paterni.appointment.domain.services.exceptions.ParameterException;
 
 @Service
 public class SearchProfessionalAvailabiltyDaysUseCase {
@@ -15,36 +13,9 @@ public class SearchProfessionalAvailabiltyDaysUseCase {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    public List<Integer> executeUseCase(Professional professional, int month, int year) {
+    public List<Integer> executeUseCase(long professionalId, LocalDate start, LocalDate end) {
+        return appointmentRepository.getAvailableDayFromProfessional(professionalId, start, end);
 
-        checkMonthIsValidOrThrowsException(month);
-        checkYearIsValidOrThrowsException(year);
-        checkMonthAndCurrentYearAreValidOrThrowsException(month, year);
-        LocalDate start = LocalDate.of(year, month, 1);
-        LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
-
-        return appointmentRepository.getAvailableDayFromProfessional(professional.getId(), start, end);
-
-    }
-
-    private void checkMonthAndCurrentYearAreValidOrThrowsException(int month, int year) {
-        if (LocalDate.now().getYear() == year && month < LocalDate.now().getMonthValue()) {
-            throw new ParameterException(
-                    "Invalid month for the current year. Month must be current month or in the future.");
-        }
-    }
-
-    private void checkMonthIsValidOrThrowsException(int month) {
-        if (month < 1 || month > 12) {
-            throw new ParameterException("Invalid month. Month must be between 1 and 12.");
-        }
-
-    }
-
-    private void checkYearIsValidOrThrowsException(int year) {
-        if (year < LocalDate.now().getYear()) {
-            throw new ParameterException("Invalid year. Year must be current year or in the future.");
-        }
     }
 
 }

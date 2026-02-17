@@ -30,7 +30,7 @@ public class ProfessionalController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProfessionalResponse> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(professionalService.getById(id));
+        return ResponseEntity.ok(professionalService.getByIdResponseProfessional(id));
     }
 
     @GetMapping("{id}/workdays")
