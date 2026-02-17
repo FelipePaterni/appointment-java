@@ -1,40 +1,30 @@
 package com.paterni.appointment.domain.services.usecases.read;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.paterni.appointment.domain.entities.Professional;
+import com.paterni.appointment.domain.repositories.AppointmentRepository;
 import com.paterni.appointment.domain.services.exceptions.ParameterException;
 
 @Service
 public class SearchProfessionalAvailabiltyDaysUseCase {
 
-    /*
-     * @Autowired
-     * private WorkScheduleItemRepository workScheduleItemRepository;
-     * 
-     * @Autowired
-     * private AppointmentRepository appointmentRepository;
-     */
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     public List<Integer> executeUseCase(Professional professional, int month, int year) {
 
         checkMonthIsValidOrThrowsException(month);
         checkYearIsValidOrThrowsException(year);
         checkMonthAndCurrentYearAreValidOrThrowsException(month, year);
+        LocalDate start = LocalDate.of(year, month, 1);
+        LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
 
-        Random random = new Random();
-        List<Integer> randomList = new ArrayList<>();
-        for (int i = 1; i <= 28; i++) {
-            if (random.nextBoolean()) {
-                randomList.add(i);
-            }
-        }
-        return randomList;
+        return appointmentRepository.getAvailableDayFromProfessional(professional.getId(), start, end);
+
     }
 
     private void checkMonthAndCurrentYearAreValidOrThrowsException(int month, int year) {

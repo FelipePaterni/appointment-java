@@ -1,5 +1,6 @@
 package com.paterni.appointment.domain.entities.testerunner;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -14,11 +15,13 @@ import com.paterni.appointment.domain.entities.AppointmentType;
 import com.paterni.appointment.domain.entities.Area;
 import com.paterni.appointment.domain.entities.Client;
 import com.paterni.appointment.domain.entities.Professional;
+import com.paterni.appointment.domain.entities.WorkScheduleItem;
 import com.paterni.appointment.domain.repositories.AppointmentRepository;
 import com.paterni.appointment.domain.repositories.AppointmentTypeRepository;
 import com.paterni.appointment.domain.repositories.AreaRepository;
 import com.paterni.appointment.domain.repositories.ClientRepository;
 import com.paterni.appointment.domain.repositories.ProfessionalRepository;
+import com.paterni.appointment.domain.repositories.WorkScheduleItemRepository;
 
 @Profile("runner")
 @Component
@@ -38,6 +41,9 @@ public class BDRunnerTestEntities implements ApplicationRunner {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
+
+    @Autowired
+    private WorkScheduleItemRepository workScheduleItemRepository;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -65,5 +71,11 @@ public class BDRunnerTestEntities implements ApplicationRunner {
         appointment.setComments("Teste do runner");
 
         appointmentRepository.save(appointment);
+
+
+        WorkScheduleItem wsi1 = new WorkScheduleItem(DayOfWeek.MONDAY, LocalTime.parse("08:00:00"), LocalTime.parse("18:00:00"), 8, 30);
+        wsi1.setProfessional(p1);
+   
+        workScheduleItemRepository.save(wsi1);
     }
 }
