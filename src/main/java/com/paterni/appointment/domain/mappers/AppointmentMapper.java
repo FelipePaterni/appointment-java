@@ -7,10 +7,10 @@ import com.paterni.appointment.domain.entities.AppointmentType;
 import com.paterni.appointment.domain.entities.Area;
 import com.paterni.appointment.domain.entities.Client;
 import com.paterni.appointment.domain.entities.Professional;
-import com.paterni.appointment.dto.AppointmentRequest;
-import com.paterni.appointment.dto.AppointmentResponse;
 import com.paterni.appointment.dto.IntegerDTO;
 import com.paterni.appointment.dto.LongDTO;
+import com.paterni.appointment.dto.Appointment.AppointmentRequest;
+import com.paterni.appointment.dto.Appointment.AppointmentResponse;
 
 public class AppointmentMapper {
 

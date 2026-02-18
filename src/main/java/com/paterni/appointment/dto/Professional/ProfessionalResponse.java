@@ -1,4 +1,4 @@
-package com.paterni.appointment.dto;
+package com.paterni.appointment.dto.Professional;
 
 public record ProfessionalResponse(
         long id,

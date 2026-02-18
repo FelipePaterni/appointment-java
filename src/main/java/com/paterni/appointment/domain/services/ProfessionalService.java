@@ -14,8 +14,8 @@ import com.paterni.appointment.domain.repositories.ProfessionalRepository;
 import com.paterni.appointment.domain.services.exceptions.ParameterException;
 import com.paterni.appointment.domain.services.usecases.read.SearchProfessionalAvailabiltyDaysUseCase;
 import com.paterni.appointment.domain.services.usecases.read.SearchProfessionalAvailabiltyTimesUseCase;
-import com.paterni.appointment.dto.ProfessionalResponse;
 import com.paterni.appointment.dto.TimeSlotResponse;
+import com.paterni.appointment.dto.Professional.ProfessionalResponse;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -61,6 +61,14 @@ public class ProfessionalService {
 
         return timeSlots.stream().map(TimeSlotMapper::toTimeSlotResponseDTO).toList();
     }
+
+    @Transactional(readOnly = true)
+    public List<ProfessionalResponse> findByArea() {
+        return professionalRepository.findAll().stream()
+                .map(ProfessionalMapper::toProfessionalResponseDTO)
+                .toList();
+    }
+
 
     private Professional getProfessional(Long id) {
         return professionalRepository.findById(id).orElseThrow(

@@ -11,8 +11,8 @@ import com.paterni.appointment.domain.entities.Client;
 import com.paterni.appointment.domain.mappers.ClientMapper;
 import com.paterni.appointment.domain.repositories.ClientRepository;
 import com.paterni.appointment.domain.services.exceptions.DatabaseException;
-import com.paterni.appointment.dto.ClientRequest;
-import com.paterni.appointment.dto.ClientResponse;
+import com.paterni.appointment.dto.Client.ClientRequest;
+import com.paterni.appointment.dto.Client.ClientResponse;
 
 import jakarta.persistence.EntityNotFoundException;
 

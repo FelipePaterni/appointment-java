@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.paterni.appointment.domain.services.AppointmentService;
-import com.paterni.appointment.dto.AppointmentRequest;
-import com.paterni.appointment.dto.AppointmentResponse;
+import com.paterni.appointment.dto.Appointment.AppointmentRequest;
+import com.paterni.appointment.dto.Appointment.AppointmentResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

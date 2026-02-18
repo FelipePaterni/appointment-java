@@ -1,7 +1,10 @@
-package com.paterni.appointment.dto;
+package com.paterni.appointment.dto.Appointment;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import com.paterni.appointment.dto.IntegerDTO;
+import com.paterni.appointment.dto.LongDTO;
 
 public record AppointmentRequest(
         LocalDate date,

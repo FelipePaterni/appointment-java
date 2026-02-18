@@ -1,8 +1,8 @@
 package com.paterni.appointment.domain.mappers;
 
 import com.paterni.appointment.domain.entities.Client;
-import com.paterni.appointment.dto.ClientRequest;
-import com.paterni.appointment.dto.ClientResponse;
+import com.paterni.appointment.dto.Client.ClientRequest;
+import com.paterni.appointment.dto.Client.ClientResponse;
 
 public class ClientMapper {
     public static ClientResponse toClientResponseDTO(Client client) {

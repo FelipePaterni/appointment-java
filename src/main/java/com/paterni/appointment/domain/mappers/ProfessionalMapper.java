@@ -1,8 +1,8 @@
 package com.paterni.appointment.domain.mappers;
 
 import com.paterni.appointment.domain.entities.Professional;
-import com.paterni.appointment.dto.ProfessionalRequest;
-import com.paterni.appointment.dto.ProfessionalResponse;
+import com.paterni.appointment.dto.Professional.ProfessionalRequest;
+import com.paterni.appointment.dto.Professional.ProfessionalResponse;
 
 public class ProfessionalMapper {
 

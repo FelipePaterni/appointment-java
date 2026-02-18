@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.paterni.appointment.domain.services.ProfessionalService;
-import com.paterni.appointment.dto.ProfessionalResponse;
 import com.paterni.appointment.dto.TimeSlotResponse;
+import com.paterni.appointment.dto.Professional.ProfessionalResponse;
 
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;

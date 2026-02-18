@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.paterni.appointment.domain.services.ClientService;
-import com.paterni.appointment.dto.ClientRequest;
-import com.paterni.appointment.dto.ClientResponse;
+import com.paterni.appointment.dto.Client.ClientRequest;
+import com.paterni.appointment.dto.Client.ClientResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
