@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.paterni.appointment.domain.entities.Professional;
 import com.paterni.appointment.domain.mappers.ProfessionalMapper;
@@ -28,15 +29,18 @@ public class ProfessionalService {
     @Autowired
     private SearchProfessionalAvailabiltyDaysUseCase searchProfessionalAvailabiltyDaysUseCase;
 
+    @Transactional(readOnly = true)
     public ProfessionalResponse getByIdResponseProfessional(Long professionalId) {
         var professional = getProfessional(professionalId);
         return ProfessionalMapper.toProfessionalResponseDTO(professional);
     }
 
+    @Transactional(readOnly = true)
     public void getWorkdays(Long professionalId) {
 
     }
 
+    @Transactional(readOnly = true)
     public List<Integer> getAvaliabilityeDays(Long professionalId, Integer month, Integer year) {
         cheakProfessionalExistOrThrowException(professionalId);
 
@@ -50,6 +54,7 @@ public class ProfessionalService {
         return searchProfessionalAvailabiltyDaysUseCase.executeUseCase(professionalId, start, end);
     }
 
+    @Transactional(readOnly = true)
     public List<TimeSlotResponse> getAvaliabilityeTimes(Long professionalId, LocalDate date) {
 
         var timeSlots = searchProfessionalAvailabiltyTimesUseCase.executeUseCase(professionalId, date);

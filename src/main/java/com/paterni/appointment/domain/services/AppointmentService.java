@@ -2,6 +2,7 @@ package com.paterni.appointment.domain.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.paterni.appointment.domain.entities.Appointment;
 import com.paterni.appointment.domain.mappers.AppointmentMapper;
@@ -15,6 +16,7 @@ public class AppointmentService {
     @Autowired
     private CreateAppointmentUseCase createAppointmentUseCase;
 
+    @Transactional
     public AppointmentResponse save(AppointmentRequest request) {
 
         Appointment appointment = createAppointmentUseCase

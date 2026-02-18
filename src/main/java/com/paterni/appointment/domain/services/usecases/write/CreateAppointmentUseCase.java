@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.paterni.appointment.domain.entities.Appointment;
 import com.paterni.appointment.domain.entities.AppointmentStatus;
@@ -44,6 +46,7 @@ public class CreateAppointmentUseCase {
     @Autowired
     private SearchProfessionalAvailabiltyTimesUseCase searchProfessionalAvailabiltyTimesUseCase;
 
+    @Transactional
     public Appointment executeUserCase(Appointment appointment) {
         checkAppointmentTypeExistOrThrowsException(appointment.getAppointmentType());
         checkAreaExistOrThrowsException(appointment.getArea());
@@ -52,15 +55,22 @@ public class CreateAppointmentUseCase {
         checkProfessionalActiveOrThrowsException(professional);
         checkAssociationBetweenProfessionalAndAreaOrThrowsException(professional, appointment.getArea());
 
-        checkProfessionalCanCreateAppointmentAtDateAndTimeOrThrowsException(professional, appointment);
         checkProfessionalHasAvailableScheduleOrThrowsException(professional, appointment);
 
         checkAppointmentIsNowOrFutureOrThrowsException(appointment.getDate(), appointment.getStartTime());
         Client client = getClientIfExistOrThrowsException(appointment.getClient());
 
-        checkClientCanCreateAppointmentAtDateAndTimeOrThrowsException(client, appointment);
-        return this.appointmentRepository.save(appointment);
+        return save(appointment, client, professional);
 
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    private Appointment save(Appointment appointment, Client client, Professional professional) {
+        checkProfessionalCanCreateAppointmentAtDateAndTimeOrThrowsException(professional, appointment);
+
+        checkClientCanCreateAppointmentAtDateAndTimeOrThrowsException(client, appointment);
+
+        return this.appointmentRepository.save(appointment);
     }
 
     private void checkProfessionalHasAvailableScheduleOrThrowsException(Professional professional,
