@@ -51,9 +51,8 @@ public class ProfessionalService {
     }
 
     public List<TimeSlotResponse> getAvaliabilityeTimes(Long professionalId, LocalDate date) {
-        var professional = getProfessional(professionalId);
 
-        var timeSlots = searchProfessionalAvailabiltyTimesUseCase.executeUseCase(professional, date);
+        var timeSlots = searchProfessionalAvailabiltyTimesUseCase.executeUseCase(professionalId, date);
 
         return timeSlots.stream().map(TimeSlotMapper::toTimeSlotResponseDTO).toList();
     }

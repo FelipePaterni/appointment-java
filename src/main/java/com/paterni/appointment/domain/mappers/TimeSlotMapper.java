@@ -7,8 +7,8 @@ public class TimeSlotMapper {
 
     public static TimeSlotResponse toTimeSlotResponseDTO(TimeSlot timeSlot) {
         return new TimeSlotResponse(
-                timeSlot.getStartTime(),
-                timeSlot.getEndTime(),
+                timeSlot.getStartTime().toLocalTime(),
+                timeSlot.getEndTime().toLocalTime(),
                 timeSlot.isAvailable());
     }
 

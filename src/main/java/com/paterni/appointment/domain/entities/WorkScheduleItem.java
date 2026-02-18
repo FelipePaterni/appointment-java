@@ -6,6 +6,7 @@ import java.time.LocalTime;
 
 import com.paterni.appointment.domain.convertes.DayOfWeekConverter;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,8 +27,10 @@ public class WorkScheduleItem implements Serializable {
     @Convert(converter = DayOfWeekConverter.class)
     private DayOfWeek dayOfWeek;
 
+    @Column(columnDefinition = "TIME WITH TIME ZONE")
     private LocalTime startTime;
 
+    @Column(columnDefinition = "TIME WITH TIME ZONE")
     private LocalTime endTime;
 
     private Integer slots;
