@@ -10,7 +10,7 @@ import com.paterni.appointment.domain.models.TimeSlot;
 
 @Repository
 @Profile({ "dev", "prod" })
-public interface AppointmentRepositoryPostgres extends AppointmentRepository {
+public interface AppointmentRepositoryPostgre extends AppointmentRepository {
 
     /*
      * WITH RECURSIVE SequencialCTE (cont) AS (
