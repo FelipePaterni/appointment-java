@@ -16,7 +16,7 @@ public class SearchProfessionalAvailabiltyDaysUseCase {
 
     @Transactional(readOnly = true)
     public List<Integer> executeUseCase(long professionalId, LocalDate start, LocalDate end) {
-        return appointmentRepository.getAvailableDayFromProfessional(professionalId, start, end);
+        return appointmentRepository.getAvailableDaysFromProfessional(professionalId, start, end);
 
     }
 

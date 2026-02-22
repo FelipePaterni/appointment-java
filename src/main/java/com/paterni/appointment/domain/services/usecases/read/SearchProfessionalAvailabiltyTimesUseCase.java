@@ -19,7 +19,7 @@ public class SearchProfessionalAvailabiltyTimesUseCase {
 
     @Transactional(readOnly = true)
     public List<TimeSlot> executeUseCase(long professionalId, LocalDate date) {
-        return appointmentRepository.getAvailableTimeFromProfessional(professionalId, date);
+        return appointmentRepository.getAvailableTimesFromProfessional(professionalId, date);
     }
 
 }
